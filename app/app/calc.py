@@ -1,4 +1,4 @@
-"""
+"""# noqa
 calc functions
 """
 
