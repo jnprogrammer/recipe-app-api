@@ -10,3 +10,6 @@ Linting
  docker-compose run --rm app sh -c "django-admin startproject app ."
 
 testing github actions on push
+
+This project uses Docker-compose to develope the project in a clean enviroment with pre-selected tools at particular versions. 
+
