@@ -22,7 +22,7 @@ def create_recipe(user, **parms):
         'description' : 'Sample description',
         'link': 'http://example.com/recipe.pdf'
     }
-    defaults.update(params)
+    defaults.update(parms)
 
     recipe = Recipe.objects.create(user=user, **defaults)
     return recipe
@@ -48,7 +48,7 @@ class PrivateRecipeAPITests(TestCase):
             'user@example.com',
             'testpass123',
         )
-        self.client.force_authenticatie(self.user)
+        self.client.force_authenticate(self.user)
     
     def test_retrive_recipes(self):
         """Test retrieving a list of recipes."""
@@ -71,7 +71,7 @@ class PrivateRecipeAPITests(TestCase):
         create_recipe(user=self.user)
 
         res = self.client.get(RECIPES_URL)
-        
+
         recipes = Recipe.objects.filter(user=self.user)
         serializer = RecipeSerializer(recipes, many=True)
         self.assertEqual(res.status_code, status.HTTP_200_OK)
