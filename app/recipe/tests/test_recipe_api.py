@@ -190,10 +190,10 @@ class PrivateRecipeAPITests(TestCase):
     def test_create_recipe_with_new_tags(self):
         """Test Creating a recipe with new tags."""
         payload = {
-            'title' : 'Thai Prawn Curry',
-            'time_minutes' : 30,
+            'title': 'Thai Prawn Curry',
+            'time_minutes': 30,
             'price': Decimal('2.50'),
-            'tags': [{'name: Thai'}, {'name': 'Dinner'}]
+            'tags': [{'name: Thai'}, {'name': 'Dinner'}],
         }
         res = self.client.post(RECIPES_URL, payload, format='json')
 
@@ -201,7 +201,7 @@ class PrivateRecipeAPITests(TestCase):
         recipes = Recipe.objects.filter(user=self.user)
         self.assertEqual(recipes.count(), 1)
         recipe = recipes[0]
-        self.assertEqual(recipes.tags.count(), 2)
+        self.assertEqual(recipe.tags.count(), 2)
         for tag in payload['tags']:
             exists = recipe.tags.filter(
                 name=tag['name'],
