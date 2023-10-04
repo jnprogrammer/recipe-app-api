@@ -7,9 +7,9 @@ from core.models import(
     Ingredient,
 )
 
-class IngredientsSerializer(serializers.ModelSerializer):
+class IngredientSerializer(serializers.ModelSerializer):
     """Serilizer for ingredients"""
-    class meta:
+    class Meta:
         model = Ingredient
         fields = ['id', 'name']
         read_only_fields = ['id']
