@@ -53,6 +53,7 @@ class PrivateIngredientApiTests(TestCase):
         """Test list of ingredients is limited to authenticated user.
             In this test we make 2 ingredients and test that only the 
             ingredient owned by the authenticated user is returned when the ingredients url is called
+            still looking for bug
         """
         user2 = create_user(email='user2@example.com')
         Ingredient.objects.create(user=user2, name='Salt')
