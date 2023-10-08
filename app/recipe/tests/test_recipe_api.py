@@ -286,12 +286,35 @@ class PrivateRecipeAPITests(TestCase):
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         recipes = Recipe.objects.filter(user=self.user)
         self.assertEqual(recipes.count(), 1)
-        recipe = recipe[0]
+        recipe = recipes[0]
         self.assertEqual(recipe.ingredients.count(), 2)
         for ingredient in payload['ingredients']:
             exists = recipe.ingredients.filter(
-                name=ingredient['name']
-                user=self.user
+                name = ingredient['name'],
+                user = self.user
             ).exists()
             self.assertTrue(exists)
-        
+    
+    def test_create_recipe_with_existing_ingredient(self):
+        """ Test creating a new recipe with exiting ingredient"""
+        ingredient = Ingredient.objects.create(user=self.user, name='Lemon')
+        payload = {
+            'title':'Vietnamse Soup',
+            'time_minutes': 20,
+            'price' : Decimal('2.30'),
+            'ingredients': [{'name': 'Lemon'}, {'name': 'Water'}],
+        }
+        res = self.client.post(RECIPES_URL, payload, format='json')
+
+        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
+        recipes = Recipe.objects.filter(user=self.user)
+        self.assertEqual(recipes.count(), 1)
+        recipe = recipes[0]
+        self.assertEqual(recipe.ingredients.count(), 2)
+        self.assertIn(ingredient, recipe.ingredients.all())
+        for ingredient in payload['ingredients']:
+            exists = recipe.ingredients.filter(
+                name = ingredient['name'],
+                user = self.user
+            ).exists()
+            self.assertTrue(exists)
