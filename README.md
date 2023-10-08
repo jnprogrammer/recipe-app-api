@@ -13,3 +13,5 @@ testing github actions on push
 
 This project uses Docker-compose to develope the project in a clean enviroment with pre-selected tools at particular versions. 
 
+"make a django admin"
+docker-compose run --rm app sh -c "python manage.py createsuperuser"
