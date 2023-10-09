@@ -17,7 +17,7 @@ RUN python -m venv /py && \
         build-base postgresql-dev musl-dev zlib zlib-dev && \
     /py/bin/pip install -r /tmp/requirements.txt && \
     /py/bin/pip install -r /tmp/requirements.dev.txt && \
-    if [ $DEV = "true"]; \
+    if [ $DEV = "true" ]; \
         then /py/bin/pip install -r /tmp/requirements.dev.txt ; \
     fi && \
     rm -rf /tmp && \
