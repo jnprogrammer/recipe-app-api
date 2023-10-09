@@ -99,8 +99,8 @@ class PrivateIngredientApiTests(TestCase):
     
     def test_filter_ingredients_assigned_to_recipes(self):
         """Test listing ingredients by those assigned to recipes."""
-        in1 = Ingredient.objects.create(self=self.user, name='Apples')
-        in2 = Ingredient.objects.create(self=self.user, name='Turkey')
+        in1 = Ingredient.objects.create(user=self.user, name='Apples')
+        in2 = Ingredient.objects.create(user=self.user, name='Turkey')
         recipe = Recipe.objects.create(
             title='Apple Pie',
             time_minutes=5,
@@ -134,6 +134,6 @@ class PrivateIngredientApiTests(TestCase):
         recipe1.ingredients.add(ing)
         recipe2.ingredients.add(ing)
         
-        res = self.client.get.(INGREDIENTS_URL, {'assigned_only': 1})
+        res = self.client.get(INGREDIENTS_URL, {'assigned_only': 1})
 
         self.assertEqual(len(res.data), 1)
