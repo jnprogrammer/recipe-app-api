@@ -108,7 +108,7 @@ class BaseRecipeAttrViewSet(mixins.DestroyModelMixin, mixins.UpdateModelMixin, m
         assigned_only = bool(
             int(self.request.query_params.get('assigned_only',0))
         )
-        queryset = self.get_queryset
+        queryset = super().get_queryset()
         if assigned_only:
             queryset = queryset.filter(recipe__isnull=False)
         return queryset.filter(
